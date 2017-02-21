@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Overtimehours list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Startdate</th>
+                <th>Enddate</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for overtimeHour in overtimeHours %}
+            <tr>
+                <td>{% if overtimeHour.startDate %}{{ overtimeHour.startDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if overtimeHour.endDate %}{{ overtimeHour.endDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('overtimehours_show', { 'id': overtimeHour.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('overtimehours_edit', { 'id': overtimeHour.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('overtimehours_new') }}">Create a new overtimeHour</a>
+        </li>
+    </ul>
+{% endblock %}
