@@ -1,6 +1,7 @@
 <?php
+// src/AppBundle/Entity/User.php
 
-namespace AppBundle\Entity;
+namespace OvertimeBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
@@ -22,5 +23,6 @@ class User extends BaseUser
     {
         parent::__construct();
         // your own logic
+        $this->roles = array('ROLE_USER');
     }
 }
