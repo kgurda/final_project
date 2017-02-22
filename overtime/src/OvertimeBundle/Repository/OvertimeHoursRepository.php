@@ -3,6 +3,7 @@
 namespace OvertimeBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * OvertimeHoursRepository
@@ -12,18 +13,6 @@ use Doctrine\ORM\EntityRepository;
  */
 class OvertimeHoursRepository extends EntityRepository
 {
-    public function countHours($id)
-    {
-        $date1 = $this
-            ->getEntityManager()
-            ->createQuery("
-        SELECT b.startDate
-        FROM OvertimeBundle:OvertimeHours b
-        WHERE b.id = :id
-        ")
-            ->setParameter('id', $id)->getResult();
 
-        return $date1;
 
-    }
 }

@@ -6,11 +6,12 @@ use OvertimeBundle\Entity\OvertimeHours;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Overtimehour controller.
- *
+
  * @Route("overtimehours")
  * @Security("has_role('ROLE_USER')")
  */
@@ -74,10 +75,28 @@ class OvertimeHoursController extends Controller
     {
         $deleteForm = $this->createDeleteForm($overtimeHour);
         $hours = $this->countHours($id);
+
+        $em = $this->getDoctrine()->getManager();
+        $startDate = $em
+            ->getRepository('OvertimeBundle:OvertimeHours')
+            ->find($id)->getStartDate();
+        $endDate = $em
+            ->getRepository('OvertimeBundle:OvertimeHours')
+            ->find($id)->getEndDate();
+        $startDateWeekend = $this->get('week_day_features')->isWeekendDate($startDate);
+        $endDateWeekend = $this->get('week_day_features')->isWeekendDate($endDate);
+        $startDateHoliday = $this->get('week_day_features')->isHolidayDate($startDate);
+        $endDateHoliday = $this->get('week_day_features')->isHolidayDate($endDate);
+
         return $this->render('overtimehours/show.html.twig', array(
             'overtimeHour' => $overtimeHour,
             'delete_form' => $deleteForm->createView(),
-            'hours' => $hours
+            'hours' => $hours,
+            'startDateWeekend'=>$startDateWeekend,
+            'endDateWeekend' => $endDateWeekend,
+            'startDateHoliday'=>$startDateHoliday,
+            'endDateHoliday' => $endDateHoliday,
+
         ));
     }
 
@@ -155,4 +174,5 @@ class OvertimeHoursController extends Controller
         $interval = date_diff($date1, $date2)->format('%H:%I');
         return $interval;
     }
+
 }
