@@ -83,19 +83,14 @@ class OvertimeHoursController extends Controller
         $endDate = $em
             ->getRepository('OvertimeBundle:OvertimeHours')
             ->find($id)->getEndDate();
-        $startDateWeekend = $this->get('week_day_features')->isWeekendDate($startDate);
-        $endDateWeekend = $this->get('week_day_features')->isWeekendDate($endDate);
-        $startDateHoliday = $this->get('week_day_features')->isHolidayDate($startDate);
-        $endDateHoliday = $this->get('week_day_features')->isHolidayDate($endDate);
+        $classifiedHours = $this->get('overtime_classifier')->classify($overtimeHour);
+
 
         return $this->render('overtimehours/show.html.twig', array(
             'overtimeHour' => $overtimeHour,
             'delete_form' => $deleteForm->createView(),
             'hours' => $hours,
-            'startDateWeekend'=>$startDateWeekend,
-            'endDateWeekend' => $endDateWeekend,
-            'startDateHoliday'=>$startDateHoliday,
-            'endDateHoliday' => $endDateHoliday,
+            'classifiedHours' => $classifiedHours,
 
         ));
     }

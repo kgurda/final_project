@@ -3,13 +3,11 @@
 namespace OvertimeBundle\Model;
 
 
-use Symfony\Component\Validator\Constraints\DateTime;
-
 class WeekDaysFeatures
 {
     public function isWeekendDate($dateTime) {
         $date = date_format($dateTime,'Y-m-d');
-        if(date('N', strtotime($date)) > 6) {
+        if(date('N', strtotime($date)) >= 6) {
             return true;
         } else {
             return false;
@@ -44,4 +42,5 @@ class WeekDaysFeatures
             return false;
         }
     }
+
 }

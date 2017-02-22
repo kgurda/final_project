@@ -1,3 +1,5 @@
 services:
     week_day_features:
         class: OvertimeBundle\Model\WeekDaysFeatures
+    overtime_classifier:
+        class: OvertimeBundle\Model\OvertimeClassifier
