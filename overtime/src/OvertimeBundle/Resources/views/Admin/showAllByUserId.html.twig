@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{% block title %}Welcome!{% endblock %}
+{% block body %}
+    <h1>Overtimehours list</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Startdate</th>
+            <th>Enddate</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for overtimeHour in overtimeHours %}
+            <tr>
+                <td>{% if overtimeHour.startDate %}{{ overtimeHour.startDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if overtimeHour.endDate %}{{ overtimeHour.endDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <a href="{{ path('overtime_admin_showbyid',{'idU': overtimeHour.user.id, 'idO': overtimeHour.id }) }}">show</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('overtime_admin_index') }}">Back</a>
+
+
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Overtimehour</h1>
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Startdate</th>
+            <td>{% if overtimeHour.startDate %}{{ overtimeHour.startDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+        </tr>
+        <tr>
+            <th>Enddate</th>
+            <td>{% if overtimeHour.endDate %}{{ overtimeHour.endDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+        </tr>
+        <tr>
+            <th>Hours</th>
+            <td>{{ hours }}</td>
+        </tr>
+        </tbody>
+    </table>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Type</th>
+            <th>Duration</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Weekday day</td>
+            <td>{{ classifiedHours[0] }}</td>
+        </tr>
+        <tr>
+            <td>Weekday night</td>
+            <td>{{ classifiedHours[1] }}</td>
+        </tr>
+        <tr>
+            <td>Holiday day</td>
+            <td>{{ classifiedHours[2] }}</td>
+        </tr>
+        <tr>
+            <td>Holiday night</td>
+            <td>{{ classifiedHours[3] }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+{% endblock %}
