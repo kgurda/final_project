@@ -2,12 +2,10 @@
 {% block title %}Welcome!{% endblock %}
 {% block body %}
     <h1>Users:</h1>
-        <ul>
+
+    <div class="list-group" style="font-size: 1em">
         {% for user in users %}
-            <li> {{ user.username }}
-                <a href="{{ path('overtime_admin_showallbyuserid', { 'id': user.id }) }}">show</a>
-            </li>
+            <a href="{{ path('overtime_admin_showallbyuserid', { 'id': user.id }) }}" class="list-group-item">{{ user.username }}</a>
         {% endfor %}
-        </ul>
-    </form>
+    </div>
 {% endblock %}
