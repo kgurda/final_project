@@ -76,15 +76,7 @@ class OvertimeHoursController extends Controller
         $deleteForm = $this->createDeleteForm($overtimeHour);
         $hours = $this->countHours($id);
 
-        $em = $this->getDoctrine()->getManager();
-        $startDate = $em
-            ->getRepository('OvertimeBundle:OvertimeHours')
-            ->find($id)->getStartDate();
-        $endDate = $em
-            ->getRepository('OvertimeBundle:OvertimeHours')
-            ->find($id)->getEndDate();
         $classifiedHours = $this->get('overtime_classifier')->classify($overtimeHour);
-
 
         return $this->render('overtimehours/show.html.twig', array(
             'overtimeHour' => $overtimeHour,
