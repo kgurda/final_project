@@ -1,33 +1,16 @@
 {% extends 'base.html.twig' %}
-{% block title %}Welcome!{% endblock %}
 {% block body %}
 
-    <h1>Overtimehours list</h1>
-    <br>
-    <form action="{{ path('overtime_overtimehours_selectonemonthovertime')}}" method="POST" name="monthyear">Select month:
-        <select name="year">Year:
-            {% for year in (2012).."now"|date('Y') %}
-                <option value="{{ year }}">{{ year }}</option>
-            {% endfor %}
-        </select>
-        <select name="month"> Month:
-            {% for month in 1..12 %}
-                {% if month <10 %}
-                    <option value="0{{ month }}">0{{ month }}</option>
-                {% else %}
-                <option value="{{ month }}">{{ month }}</option>
-                {% endif %}
-            {% endfor %}
-        </select>
-        <input type="submit">
-    </form>
+    {{ startDate }}
+    {{ endDate }}
+
     <table class="table">
         <thead>
-            <tr>
-                <th>Startdate</th>
-                <th>Enddate</th>
-                <th>Actions</th>
-            </tr>
+        <tr>
+            <th>Startdate</th>
+            <th>Enddate</th>
+            <th>Actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for overtimeHour in overtimeHours %}
@@ -54,9 +37,9 @@
     </table>
 
     <div>
-            <a href="{{ path('overtimehours_new') }}">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                Create a new overtimeHour
-            </a>
+        <a href="{{ path('overtimehours_new') }}">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            Create a new overtimeHour
+        </a>
     </div>
 {% endblock %}

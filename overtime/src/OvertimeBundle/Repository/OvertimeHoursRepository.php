@@ -13,6 +13,12 @@ use Symfony\Component\Validator\Constraints\Date;
  */
 class OvertimeHoursRepository extends EntityRepository
 {
-
-
+    public  function findOvertimesBetweenDates($user_id, $startDate, $endDate)
+    {
+        $sql = "SELECT p 
+                FROM OvertimeBundle:OvertimeHours p 
+                WHERE p.user_id = :user_id 
+                and p.startDate BETWEEN :startDate and :endDate
+                and p.endDate BETWEEN :startDate and :endDate";
+    }
 }

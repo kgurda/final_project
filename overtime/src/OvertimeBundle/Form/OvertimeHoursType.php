@@ -5,6 +5,7 @@ namespace OvertimeBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class OvertimeHoursType extends AbstractType
 {
@@ -13,7 +14,9 @@ class OvertimeHoursType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('startDate')->add('endDate');
+        $builder->add('startDate')
+            ->add('endDate');
+        // DateType::class, array('data' => new \DateTime('now'))
     }
     
     /**

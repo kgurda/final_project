@@ -4,10 +4,12 @@ namespace OvertimeBundle\Controller;
 
 use OvertimeBundle\Entity\OvertimeHours;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Overtimehour controller.
@@ -23,7 +25,7 @@ class OvertimeHoursController extends Controller
      * @Route("/", name="overtimehours_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -115,7 +117,7 @@ class OvertimeHoursController extends Controller
     /**
      * Deletes a overtimeHour entity.
      *
-     * @Route("/{id}", name="overtimehours_delete")
+     * @Route("/{id}", name="overtimehours_delete")2
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, OvertimeHours $overtimeHour)
@@ -133,10 +135,40 @@ class OvertimeHoursController extends Controller
     }
 
     /**
+     * @Route("/period")
+     * @Template()
+     */
+    public function selectOneMonthOvertimeAction(Request $request)
+    {
+        $monthYear = $request->request->all();
+        $monthYear = implode("-",$monthYear); // string
+        $date = date_create_from_format('Y-m',$monthYear); //datatime
+
+        $startDate = date('Y-m-01', strtotime($monthYear));
+        $startDateDT = date_create_from_format('Y-m-d',$startDate);
+        $endDate = date('Y-m-t', strtotime($monthYear));
+        $endDateDT = date_create_from_format('Y-m-d',$endDate);
+        $user = $this->getUser();
+
+        $em = $this->getDoctrine()->getManager();
+        $overtimeHours = $em->
+                        createQuery(
+                "SELECT p 
+                FROM OvertimeBundle:OvertimeHours p 
+                WHERE p.user = :user
+                and p.startDate BETWEEN :startDate and :endDate
+                and p.endDate BETWEEN :startDate and :endDate"
+        )->setParameters(array('user'=> $user, 'startDate' => $startDate, 'endDate'=> $endDate))->getResult();
+
+        return ['startDate' => $startDate,
+                'endDate' => $endDate,
+                'overtimeHours' => $overtimeHours
+        ];
+    }
+
+    /**
      * Creates a form to delete a overtimeHour entity.
-     *
      * @param OvertimeHours $overtimeHour The overtimeHour entity
-     *
      * @return \Symfony\Component\Form\Form The form
      */
     private function createDeleteForm(OvertimeHours $overtimeHour)

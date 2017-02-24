@@ -18,8 +18,7 @@ class WeekDaysFeatures
         $date = date_format($dateTime,'d-m');
         $year = date_format($dateTime, 'Y');
         $easter = date('d-m', easter_date($year));
-        $mondayEaster = date($easter, strtotime("+1 days"));
-//        $mondayEaster = date_add($easter,date_interval_create_from_date_string("1 day"));
+        $mondayEaster = date($easter, strtotime("+1 day"));
         $corpusChristi = date($easter, strtotime("+60 days"));
         $holidays = array(
             '01-01',

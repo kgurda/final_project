@@ -46,17 +46,21 @@
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('overtimehours_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('overtimehours_edit', { 'id': overtimeHour.id }) }}">Edit</a>
-        </li>
-        <li>
+    <div>
+        <a href="{{ path('overtimehours_index') }}">
+            <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+            Back to the list
+        </a>
+    </div>
+    <div>
+            <a href="{{ path('overtimehours_edit', { 'id': overtimeHour.id }) }}">
+                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                Edit
+            </a>
+    </div>
+    <div>
             {{ form_start(delete_form) }}
                 <input type="submit" value="Delete">
             {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    </div>
 {% endblock %}
